@@ -817,14 +817,24 @@ function collectData(){
   return rows;
 }
 
-async function submitData(){
-  const WEBHOOK_URL='https://defaulte93279240f9745ba871f4a124f3343.19.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b90cd7a18a524a1f8cd41cd93c6344f8/triggers/manual/paths/invoke?api-version=1';
-  const rows=collectData();
+async function submitData() {
+  const WEBHOOK_URL = 'https://defaulte93279240f9745ba871f4a124f3343.19.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b90cd7a18a524a1f8cd41cd93c6344f8/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=T13pl1mlLfgc35xnP8v7EIrLhgPBcgP1cWrR7b1biiE';
+  const rows = collectData();
   document.getElementById('subOverlay').classList.add('on');
-  try{
-    await fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({rows})});
-  } catch(e){console.warn('Submit error:',e);}
-  setTimeout(()=>{document.getElementById('subOverlay').classList.remove('on');S.page=5;showPg(5);},1800);
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rows })
+    });
+  } catch(e) {
+    console.warn('Submit error:', e);
+  }
+  setTimeout(() => {
+    document.getElementById('subOverlay').classList.remove('on');
+    S.page = 5;
+    showPg(5);
+  }, 1800);
 }
 
 showPg(0);
