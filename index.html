@@ -796,7 +796,7 @@ function collectData(){
     for(let i=1;i<=n;i++){
       const getChips=(container)=>[...container.querySelectorAll('.chip.on')].map(c=>c.textContent).join(', ');
       const acc=document.getElementById('acc'+i);
-      rows.push([ts,S.udn?.name||'',lN,lC,lE,'Sim',
+      rows.push([ts,S.udn?.name||'',lN,lC,lE,document.getElementById('maturidadeDigital')?.value||'','Sim',
         document.getElementById('p'+i+'n')?.value||'',document.getElementById('p'+i+'c')?.value||'',
         document.getElementById('p'+i+'o')?.value||'',document.getElementById('p'+i+'s')?.value||'',
         document.getElementById('p'+i+'a')?.value||'',
@@ -808,7 +808,7 @@ function collectData(){
     }
   } else {
     const getChips=(id)=>[...document.getElementById(id).querySelectorAll('.chip.on')].map(c=>c.textContent).join(', ');
-    rows.push([ts,S.udn?.name||'',lN,lC,lE,'Não','','','','','','','','','','','','','',
+    rows.push([ts,S.udn?.name||'',lN,lC,lE,document.getElementById('maturidadeDigital')?.value||'','Não','','','','','','','','','','','','','',
       getChips('mtvG'),document.getElementById('mtvJ').value,
       getChips('impG'),document.getElementById('impJ').value,
       S.fut||'',document.getElementById('futJ').value,
