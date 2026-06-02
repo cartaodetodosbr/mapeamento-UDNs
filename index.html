@@ -822,8 +822,8 @@ async function submitData(){
   const rows=collectData();
   document.getElementById('subOverlay').classList.add('on');
   try{
-    await fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({rows})});
-  } catch(e){console.warn('Submit error:',e);}
+    await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({rows})});
+  } catch(e){console.warn('Submit error (ignorado com no-cors removido):',e);}
   setTimeout(()=>{document.getElementById('subOverlay').classList.remove('on');S.page=5;showPg(5);},1800);
 }
 
