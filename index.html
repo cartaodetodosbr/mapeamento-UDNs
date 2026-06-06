@@ -564,20 +564,20 @@ const LEADS=[["ALEXANDRE VERAS", "CEO", "alexandreveras@gt7.com.br"], ["HOMERO R
 let S={page:0,udn:null,hasInit:null,qty:0,fut:null};
 
 const grid=document.getElementById('udnGrid');
-UDNs.forEach(u=>{
+if(grid){UDNs.forEach(u=>{
   const d=document.createElement('div');
   d.className='udn-card';d.id='uc_'+u.id;
   d.innerHTML=`<div class="udn-logo"><img src="${u.img}" alt="${u.name}"></div><div class="udn-name">${u.name}</div><div class="udn-tick"><i class="ti ti-check"></i></div>`;
   d.onclick=()=>pickU(u);
   grid.appendChild(d);
-});
+});}
 
 const lSel=document.getElementById('leadSel');
-LEADS.forEach((l,i)=>{
+if(lSel){LEADS.forEach((l,i)=>{
   const o=document.createElement('option');
   o.value=i;o.textContent=l[0]+' – '+l[1];
   lSel.appendChild(o);
-});
+});}
 
 function pickU(u){
   document.querySelectorAll('.udn-card').forEach(c=>c.classList.remove('sel'));
