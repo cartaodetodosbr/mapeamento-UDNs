@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TODOS - Transformação Digital</title>
+<title>TODOS | Mapeamento Digital</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
@@ -289,14 +289,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <!-- 2. Intro centralizada -->
   <div class="intro-wrap">
     <div class="intro-header">
-      <div class="hero-tag"><i class="ti ti-brain"></i> Transformação Digital · CDT 2026</div>
+      <div class="hero-tag"><i class="ti ti-brain"></i> Mapeamento Digital · CDT 2026</div>
       <h1>Mapeamento de iniciativas de<br><em>Inteligência Artificial e Transformação Digital</em></h1>
-      <p class="hero-sub">Centralização das iniciativas digitais e projetos de inovação das Unidades de Negócio do Grupo Cartão de TODOS Internacional.</p>
+      <p class="hero-sub">Mapeamento das iniciativas digitais e projetos de inovação das Unidades de Negócio do Grupo TODOS Internacional.</p>
     </div>
 
     <div class="intro-cols">
       <div class="info-box">
-        <p><strong>Objetivo do levantamento:</strong> Mapear todas as iniciativas de Transformação Digital e Inteligência Artificial das Unidades de Negócio do Grupo Cartão de TODOS Internacional.</p>
+        <p><strong>Objetivo do levantamento:</strong> Mapear todas as iniciativas com uso de Inteligência Artificial com foco em Transformação Digital das Unidades de Negócio do Grupo TODOS Internacional.</p>
         <p><strong>Importância estratégica:</strong> Como parte da estratégia de Pessoas e Cultura para este biênio, temos como OKR de Liderança: <blockquote>"Garantir que 100% das lideranças se tornem agentes de transformação digital, promovendo e consolidando uma cultura muito forte e saudável."</blockquote> Dentre outras estratégias para avançarmos nessa direção, estabelecemos como KR: <blockquote>"Ter 75% das lideranças formadas com nível ativo (=2) de liderança transformadora."</blockquote> Mais do que concluir uma formação, esse indicador busca garantir que os conteúdos aprendidos estejam sendo efetivamente colocados em prática pelas lideranças no dia a dia das franquias, fortalecendo comportamentos alinhados à transformação cultural que desejamos consolidar.</p>
         <p><strong>Como serão analisados:</strong> Os dados serão analisados para identificarmos avanços, oportunidades de desenvolvimento e boas práticas que possam fortalecer ainda mais nossa cultura de liderança transformadora.</p>
       </div>
@@ -322,78 +322,135 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 <!-- ─── P1 ─── -->
 <div class="pg" id="p1">
-  <div class="sh"><div class="tag">Etapa 2 de 5</div><h2>Dados da Liderança</h2><p>Identifique a liderança responsável pelo preenchimento deste mapeamento.</p></div>
+  <div class="sh"><div class="tag">Etapa 2 de 5</div><h2>Identificação da Liderança</h2><p>Informe os dados de quem está preenchendo este formulário e, se quiser, outras lideranças da unidade.</p></div>
   <div class="val" id="v1"><i class="ti ti-alert-circle"></i><span id="v1t">Preencha todos os campos obrigatórios.</span></div>
+
+  <!-- UDN readonly -->
   <div class="fc">
+    <div class="fg" style="margin-bottom:0">
+      <label>Unidade de Negócio</label>
+      <input id="udnDisp" readonly style="background:var(--tp);border-color:rgba(0,176,155,.4);color:var(--p);cursor:default">
+    </div>
+  </div>
+
+  <!-- Responsável principal -->
+  <div class="fc">
+    <h4 style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:1.1rem;display:flex;align-items:center;gap:7px"><i class="ti ti-user" style="color:var(--t)"></i> Responsável pelo preenchimento do formulário</h4>
     <div class="fr">
-      <div class="fg"><label>Unidade de Negócio</label>
-        <input id="udnDisp" readonly style="background:var(--tp);border-color:rgba(0,176,155,.4);color:var(--p);cursor:default">
+      <div class="fg">
+        <label>Nome completo <span class="req">*</span></label>
+        <input id="lNome" placeholder="Ex.: Maria da Silva">
+        <span class="err-hint" id="hLNome">Campo obrigatório.</span>
       </div>
-      <div class="fg"><label>Liderança <span class="req">*</span></label>
-        <select id="leadSel" onchange="onLead()"><option value="">Selecione a liderança...</option></select>
+      <div class="fg">
+        <label>Cargo <span class="req">*</span></label>
+        <select id="lCargo" onchange="togCargoOutro('lCargo','lCargoOutroDiv')">
+          <option value="">Selecione...</option>
+          <option>Diretor</option>
+          <option>C-Level</option>
+          <option>Gerente</option>
+          <option>Coordenador</option>
+          <option>Supervisor</option>
+          <option>Outro</option>
+        </select>
+        <div class="sub-field" id="lCargoOutroDiv" style="display:none;margin-top:.5rem">
+          <input id="lCargoOutro" placeholder="Informe o cargo">
+        </div>
+        <span class="err-hint" id="hLCargo">Campo obrigatório.</span>
       </div>
     </div>
     <div class="fr">
-      <div class="fg"><label>Cargo <span class="req">*</span></label><input id="lCargo" placeholder="Preenchido ao selecionar liderança"></div>
-      <div class="fg"><label>E-mail <span class="req">*</span></label><input type="email" id="lEmail" placeholder="Preenchido ao selecionar liderança"></div>
-    </div>
-    <div class="mt" onclick="togM(event)">
-      <input type="checkbox" id="mChk" onchange="togM(event)">
-      <label for="mChk"><i class="ti ti-user-plus" style="margin-right:4px"></i>Não encontrei minha liderança – Cadastrar manualmente</label>
-    </div>
-    <div class="mf" id="mFields">
-      <div class="fr">
-        <div class="fg"><label>Nome completo <span class="req">*</span></label><input id="mN" placeholder="Ex.: João da Silva"></div>
-        <div class="fg"><label>Cargo <span class="req">*</span></label><input id="mC" placeholder="Ex.: Gerente de Operações"></div>
+      <div class="fg">
+        <label>E-mail <span class="req">*</span></label>
+        <input type="email" id="lEmail" placeholder="Ex.: maria.silva@todos.com.br">
+        <span class="err-hint" id="hLEmail">Campo obrigatório.</span>
       </div>
-      <div class="fr s1">
-        <div class="fg"><label>E-mail <span class="req">*</span></label><input type="email" id="mE" placeholder="Ex.: joao.silva@todos.com.br"></div>
+      <div class="fg">
+        <label>WhatsApp <span style="font-size:.75rem;color:var(--gm);font-weight:400">(opcional)</span></label>
+        <input type="tel" id="lWhats" placeholder="Ex.: (11) 99999-9999">
       </div>
     </div>
+  </div>
+
+  <!-- Outras lideranças -->
+  <div class="fc">
+    <h4 style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.4rem;display:flex;align-items:center;gap:7px"><i class="ti ti-users" style="color:var(--t)"></i> Outras lideranças da UDN <span style="font-size:.78rem;color:var(--gm);font-weight:400">(opcional)</span></h4>
+    <p style="font-size:.87rem;color:var(--gd);margin-bottom:1.1rem">Informe outras lideranças relevantes da sua unidade, se desejar.</p>
+    <div id="extraLeaders"></div>
+    <button type="button" onclick="addLeader()" style="display:flex;align-items:center;gap:6px;padding:8px 16px;border:1.5px dashed var(--t);border-radius:9px;background:transparent;color:var(--p);font-family:'DM Sans',sans-serif;font-size:.87rem;font-weight:600;cursor:pointer;margin-top:.5rem;transition:all .18s">
+      <i class="ti ti-plus"></i> Adicionar outra liderança
+    </button>
   </div>
 </div>
 
 <!-- ─── P2 ─── -->
 <div class="pg" id="p2">
-  <div class="sh"><div class="tag">Etapa 3 de 5</div><h2>Existência de Iniciativas</h2><p>Sua área possui alguma iniciativa de Transformação Digital, Automação ou Inteligência Artificial?</p></div>
-  <div class="val" id="v2"><i class="ti ti-alert-circle"></i><span>Selecione uma das opções para continuar.</span></div>
+  <div class="sh"><div class="tag">Etapa 3 de 5</div><h2>Iniciativas Digitais</h2><p>Vamos entender como a sua unidade está em relação ao uso de tecnologia.</p></div>
+  <div class="val" id="v2"><i class="ti ti-alert-circle"></i><span>Preencha todos os campos e selecione uma das opções para continuar.</span></div>
+
+  <!-- 1. Bloco explicativo -->
   <div class="fc" style="margin-bottom:1.25rem">
-    <div class="fg" style="margin-bottom:1.1rem">
-      <label class="lbl-destaque">Como você avalia o nível de maturidade digital da sua unidade? <span class="req">*</span></label>
-      <p style="font-size:.87rem;color:var(--gd);line-height:1.65;margin:.5rem 0 1rem 0">
-        Considere:<br>
-        • Uso de tecnologia nos processos<br>
-        • Automações existentes<br>
-        • Uso de dados para tomada de decisão<br>
-        • Uso de IA<br>
-        • Integração entre sistemas
-      </p>
-      <select id="maturidadeDigital" required>
-        <option value="">Selecione uma opção</option>
-        <option>Muito baixo</option>
-        <option>Baixo</option>
-        <option>Médio</option>
-        <option>Alto</option>
-        <option>Muito alto</option>
-      </select>
-      <span class="err-hint" id="hMat">Campo obrigatório – selecione uma opção.</span>
-    </div>
-    <p style="font-size:.85rem;color:var(--gd);font-weight:700;margin-bottom:.75rem">Exemplos de iniciativas que se enquadram:</p>
+    <p style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.75rem">O que é uma iniciativa digital?</p>
+    <p style="font-size:.9rem;color:var(--gd);line-height:1.75;margin-bottom:0">
+      Uma iniciativa digital é qualquer ação, ferramenta, automação ou utilização de tecnologia que ajude a tornar os processos mais eficientes, produtivos ou inteligentes.<br><br>
+      Ela pode envolver Inteligência Artificial, automações, integração entre sistemas, uso de dados, dashboards, formulários digitais ou qualquer solução tecnológica que facilite o trabalho da equipe.
+    </p>
+  </div>
+
+  <!-- 2. Maturidade digital — ANTES da pergunta principal -->
+  <div class="fc" style="margin-bottom:1.25rem">
+    <label class="lbl-destaque">Como você avalia o nível de maturidade digital da sua unidade? <span class="req">*</span></label>
+    <p style="font-size:.87rem;color:var(--gd);line-height:1.75;margin:.5rem 0 1rem 0">
+      Considere fatores como:<br>
+      • Uso de tecnologia nos processos do dia a dia<br>
+      • Utilização de ferramentas digitais<br>
+      • Uso de dados para tomada de decisão<br>
+      • Existência de automações<br>
+      • Uso de Inteligência Artificial<br>
+      • Integração entre sistemas
+    </p>
+    <select id="maturidadeDigital" required>
+      <option value="">Selecione uma opção</option>
+      <option>Muito baixa</option>
+      <option>Baixa</option>
+      <option>Média</option>
+      <option>Alta</option>
+      <option>Muito alta</option>
+    </select>
+    <span class="err-hint" id="hMat">Campo obrigatório – selecione uma opção.</span>
+  </div>
+
+  <!-- 3. Pergunta principal + exemplos -->
+  <div class="fc" style="margin-bottom:1.25rem">
+    <p style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.75rem">Sua área utiliza alguma ferramenta digital, automação ou Inteligência Artificial no dia a dia?</p>
+    <p style="font-size:.87rem;color:var(--gd);line-height:1.7;margin-bottom:.875rem">Veja os exemplos abaixo para identificar se a sua área já possui iniciativas:</p>
     <div class="tags">
-      <span class="tag-t"><i class="ti ti-robot" style="font-size:11px"></i> Automação de processos</span>
-      <span class="tag-t"><i class="ti ti-chart-bar" style="font-size:11px"></i> Dashboards / Power BI</span>
-      <span class="tag-t"><i class="ti ti-code" style="font-size:11px"></i> Python / VBA / SQL</span>
-      <span class="tag-p"><i class="ti ti-brain" style="font-size:11px"></i> ChatGPT / Copilot</span>
-      <span class="tag-p"><i class="ti ti-plug" style="font-size:11px"></i> Integrações entre sistemas</span>
-      <span class="tag-p"><i class="ti ti-device-mobile" style="font-size:11px"></i> Aplicativos internos</span>
-      <span class="tag-t"><i class="ti ti-message-bot" style="font-size:11px"></i> Bots e fluxos automáticos</span>
-      <span class="tag-t"><i class="ti ti-database" style="font-size:11px"></i> Projetos de dados / IA</span>
+      <span class="tag-p"><i class="ti ti-brain" style="font-size:11px"></i> Uso de ChatGPT, Copilot ou outras Inteligências Artificiais</span>
+      <span class="tag-t"><i class="ti ti-robot" style="font-size:11px"></i> Automação de tarefas repetitivas realizadas manualmente</span>
+      <span class="tag-t"><i class="ti ti-chart-bar" style="font-size:11px"></i> Painéis e dashboards para acompanhamento de indicadores</span>
+      <span class="tag-p"><i class="ti ti-plug" style="font-size:11px"></i> Integração entre sistemas para reduzir retrabalho</span>
+      <span class="tag-t"><i class="ti ti-file-check" style="font-size:11px"></i> Formulários digitais substituindo controles manuais</span>
+      <span class="tag-p"><i class="ti ti-device-mobile" style="font-size:11px"></i> Aplicativos ou ferramentas para aumentar produtividade</span>
+      <span class="tag-t"><i class="ti ti-database" style="font-size:11px"></i> Uso de dados para apoiar decisões</span>
+      <span class="tag-p"><i class="ti ti-tools" style="font-size:11px"></i> Ferramentas digitais para atendimento, vendas ou gestão</span>
     </div>
   </div>
+
+  <!-- 4. Cards Sim / Não -->
   <div class="cg">
-    <div class="cc" onclick="selInit(true)" id="cY"><div class="ci yes"><i class="ti ti-rocket"></i></div><h3> Possuímos iniciativas</h3><p>Nossa área já tem projetos, automações ou ferramentas digitais em andamento ou concluídos.</p></div>
-    <div class="cc" onclick="selInit(false)" id="cN"><div class="ci no"><i class="ti ti-map-pin"></i></div><h3> Ainda não possuímos</h3><p>Nossa área ainda não iniciou projetos de transformação digital ou automação.</p></div>
+    <div class="cc" onclick="selInit(true)" id="cY">
+      <div class="ci yes"><i class="ti ti-rocket"></i></div>
+      <h3>Sim, utilizamos</h3>
+      <p>Nossa área já utiliza alguma ferramenta digital, automação ou Inteligência Artificial.</p>
+    </div>
+    <div class="cc" onclick="selInit(false)" id="cN">
+      <div class="ci no"><i class="ti ti-map-pin"></i></div>
+      <h3>Ainda não utilizamos</h3>
+      <p>Nossa área ainda não utiliza ferramentas digitais, automações ou Inteligência Artificial em seus processos.</p>
+    </div>
   </div>
+
+  <!-- 5. Quantidade (se Sim) -->
   <div id="qtyDiv" style="display:none">
     <div class="fc">
       <h4 style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.75rem">Quantas iniciativas existem atualmente?</h4>
@@ -406,6 +463,9 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       </div>
     </div>
   </div>
+
+  <!-- maturidadeDiv mantido vazio por compatibilidade JS -->
+  <div id="maturidadeDiv" style="display:none"></div>
 </div>
 
 <!-- ─── P3 ─── -->
@@ -429,9 +489,9 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="fg" style="margin-top:1rem"><label>Justificativa <span class="req">*</span></label><textarea id="impJ" placeholder="Descreva os principais impedimentos..."></textarea><span class="err-hint" id="hImpJ">Campo obrigatório.</span></div>
     </div>
     <div class="fc">
-      <h4 style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.75rem">Existe interesse futuro?</h4>
+      <h4 style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.75rem">Existe planejamento futuro?</h4>
       <div class="qf"><div class="qp" onclick="sFut(this,'Curto prazo')">Curto prazo</div><div class="qp" onclick="sFut(this,'Médio prazo')">Médio prazo</div><div class="qp" onclick="sFut(this,'Longo prazo')">Longo prazo</div><div class="qp" onclick="sFut(this,'Sem planejamento')">Sem planejamento</div></div>
-      <div class="fg" style="margin-top:1rem"><label>Justificativa <span class="req">*</span></label><textarea id="futJ" placeholder="Descreva a perspectiva de interesse futuro..."></textarea><span class="err-hint" id="hFutJ">Campo obrigatório.</span></div>
+      <div class="fg" style="margin-top:1rem"><label>Justificativa do planejamento futuro <span class="req">*</span></label><textarea id="futJ" placeholder="Descreva a perspectiva de planejamento futuro..."></textarea><span class="err-hint" id="hFutJ">Campo obrigatório.</span></div>
     </div>
     <div class="fc">
       <h4 style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.875rem">Qual apoio seria útil?</h4>
@@ -452,7 +512,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <div class="suc">
     <div class="suc-icon"><i class="ti ti-check"></i></div>
     <h2>Mapeamento Concluído!</h2>
-    <p>Obrigado pela sua participação.<br>Sua contribuição ajudará a fortalecer a estratégia de<br><strong>Transformação Digital da TODOS Empreendimentos.</strong></p>
+    <p>Obrigado!<br>Sua contribuição ajudará a fortalecer a estratégia de<br><strong>Mapeamento Digital da TODOS Empreendimentos.</strong></p>
     <div class="nxt">
       <p style="font-size:.85rem;color:var(--gm);font-weight:700;margin-bottom:.875rem">Próximos passos:</p>
       <div class="nxt-item"><i class="ti ti-chart-dots" style="color:var(--t);font-size:18px;flex-shrink:0"></i><span>Os dados serão consolidados até xx/xx/xxxx para o Relatório Estratégico.</span></div>
@@ -527,28 +587,48 @@ function pickU(u){
   document.getElementById('udnErr').style.display='none';
 }
 
-function onLead(){
-  const v=document.getElementById('leadSel').value;
-  if(v!==''){
-    const l=LEADS[parseInt(v)];
-    document.getElementById('lCargo').value=l[1];
-    document.getElementById('lEmail').value=l[2];
-    document.getElementById('lCargo').classList.add('auto');
-    document.getElementById('lEmail').classList.add('auto');
-  } else {
-    document.getElementById('lCargo').value='';
-    document.getElementById('lEmail').value='';
-    document.getElementById('lCargo').classList.remove('auto');
-    document.getElementById('lEmail').classList.remove('auto');
-  }
+// ─── P1 helpers ─────────────────────────────────────────────
+function togCargoOutro(selId, divId){
+  const v=document.getElementById(selId).value;
+  const d=document.getElementById(divId);
+  if(d) d.style.display=(v==='Outro')?'block':'none';
 }
 
-function togM(e){
-  e.stopPropagation();
-  const c=document.getElementById('mChk');
-  if(e.target!==c)c.checked=!c.checked;
-  document.getElementById('mFields').classList.toggle('on',c.checked);
+let leaderCount=0;
+function addLeader(){
+  leaderCount++;
+  const i=leaderCount;
+  const cargoOpts=['Diretor','C-Level','Gerente','Coordenador','Supervisor','Outro'].map(o=>`<option>${o}</option>`).join('');
+  const div=document.createElement('div');
+  div.id='extraLeader_'+i;
+  div.style.cssText='border:1px solid var(--gl);border-radius:var(--r);padding:1rem;margin-bottom:.75rem;position:relative';
+  div.innerHTML=`
+    <button type="button" onclick="removeLeader(${i})" style="position:absolute;top:8px;right:10px;background:none;border:none;cursor:pointer;color:var(--gm);font-size:16px" title="Remover"><i class="ti ti-x"></i></button>
+    <div style="font-size:.84rem;font-weight:700;color:var(--p);margin-bottom:.875rem">Liderança ${i}</div>
+    <div class="fr">
+      <div class="fg"><label>Nome completo</label><input id="el${i}nome" placeholder="Ex.: Carlos Souza"></div>
+      <div class="fg">
+        <label>Cargo</label>
+        <select id="el${i}cargo" onchange="togCargoOutro('el${i}cargo','el${i}cargoDiv')">
+          <option value="">Selecione...</option>${cargoOpts}
+        </select>
+        <div id="el${i}cargoDiv" style="display:none;margin-top:.5rem"><input id="el${i}cargoOutro" placeholder="Informe o cargo"></div>
+      </div>
+    </div>
+    <div class="fr">
+      <div class="fg"><label>E-mail</label><input type="email" id="el${i}email" placeholder="Ex.: carlos@todos.com.br"></div>
+      <div class="fg"><label>WhatsApp <span style="font-size:.75rem;color:var(--gm)">(opcional)</span></label><input type="tel" id="el${i}whats" placeholder="Ex.: (11) 99999-9999"></div>
+    </div>`;
+  document.getElementById('extraLeaders').appendChild(div);
 }
+function removeLeader(i){
+  const el=document.getElementById('extraLeader_'+i);
+  if(el) el.remove();
+}
+
+function onLead(){} // mantido por compatibilidade
+
+// togM removed - form is now fully manual
 
 function selInit(h){
   S.hasInit=h;
@@ -605,7 +685,7 @@ function mkAcc(i){
       <div class="fg"><label>Principal Benefício Percebido <span class="req">*</span></label>
         <div class="chips">${bens.map(t=>`<div class="chip" onclick="tC(this)">${t}</div>`).join('')}</div>
         <textarea id="p${i}bd" placeholder="Descreva os benefícios percebidos..." style="margin-top:7px"></textarea><span class="err-hint" id="hp${i}bd">Campo obrigatório.</span></div>
-      <div class="fr"><div class="fg"><label>Próximos Passos <span class="req">*</span></label><textarea id="p${i}px" placeholder="Expandir a solução para outras áreas..."></textarea><span class="err-hint" id="hp${i}px">Campo obrigatório.</span></div>
+      <div class="fr"><div class="fg"><label>Qual é o próximo estágio desta iniciativa? <span class="req">*</span></label><select id="p${i}px" onchange="togPxOutro(${i})"><option value="">Selecione...</option><option>Já está em funcionamento</option><option>Será expandida para outras áreas</option><option>Está em fase de melhoria</option><option>Está em fase de testes</option><option>Ainda está sendo estruturada</option><option>Outro</option></select><div id="p${i}pxOutroDiv" style="display:none;margin-top:.5rem"><input id="p${i}pxOutro" placeholder="Descreva o próximo estágio..."></div><span class="err-hint" id="hp${i}px">Campo obrigatório.</span></div>
       <div class="fg"><label>Responsável Principal <span class="req">*</span></label><input id="p${i}re" placeholder="Nome do responsável pela iniciativa"><span class="err-hint" id="hp${i}re">Campo obrigatório.</span></div>
       <div class="fg"><label>Co-responsável</label><input id="p${i}cr" placeholder="Nome do co-responsável (opcional)"></div></div>
     </div>
@@ -614,6 +694,7 @@ function mkAcc(i){
 
 function tA(i){document.getElementById('acc'+i).classList.toggle('open')}
 function updT(i){const v=document.getElementById('p'+i+'n').value;document.getElementById('at'+i).textContent=v||'Projeto '+i}
+function togPxOutro(i){const v=document.getElementById('p'+i+'px').value;const d=document.getElementById('p'+i+'pxOutroDiv');if(d)d.style.display=v==='Outro'?'block':'none';}
 
 function updProg(n){
   for(let i=0;i<6;i++){
@@ -660,19 +741,14 @@ function gNext(){
   
   // P1: leadership
   if(p===1){
-    const m=document.getElementById('mChk').checked;
-    if(m){
-      const n=document.getElementById('mN'),c=document.getElementById('mC'),e=document.getElementById('mE');
-      let ok=true;
-      if(!n.value.trim()){fErr(n,null,true);ok=false;}else fErr(n,null,false);
-      if(!c.value.trim()){fErr(c,null,true);ok=false;}else fErr(c,null,false);
-      if(!e.value.trim()){fErr(e,null,true);ok=false;}else fErr(e,null,false);
-      if(!ok){sV('v1','Preencha todos os campos do cadastro manual.');return;}
-    } else {
-      const ls=document.getElementById('leadSel');
-      if(!ls.value){fErr(ls,null,true);sV('v1','Selecione a liderança para continuar.');return;}
-      fErr(ls,null,false);
-    }
+    const nome=document.getElementById('lNome');
+    const cargo=document.getElementById('lCargo');
+    const email=document.getElementById('lEmail');
+    let ok=true;
+    if(!nome.value.trim()){fErr(nome,document.getElementById('hLNome'),true);ok=false;}else fErr(nome,document.getElementById('hLNome'),false);
+    if(!cargo.value){fErr(cargo,document.getElementById('hLCargo'),true);ok=false;}else fErr(cargo,document.getElementById('hLCargo'),false);
+    if(!email.value.trim()){fErr(email,document.getElementById('hLEmail'),true);ok=false;}else fErr(email,document.getElementById('hLEmail'),false);
+    if(!ok){sV('v1','Preencha todos os campos obrigatórios.');return;}
     hV('v1');S.page=2;showPg(2);return;
   }
   
@@ -684,9 +760,9 @@ function gNext(){
     if(!mat.value){fErr(mat,hMat,true);ok=false;}else fErr(mat,hMat,false);
     if(S.hasInit===null){document.getElementById('v2').classList.add('on');ok=false;}
     else document.getElementById('v2').classList.remove('on');
-    if(S.hasInit===true&&!S.qty){document.getElementById('v2').classList.add('on');ok=false;}
+    if(S.hasInit===true&&!S.qty){sV('v2','Informe quantas iniciativas existem.');ok=false;}
     if(!ok)return;
-    S.page=3;showPg(3);return;
+    hV('v2');S.page=3;showPg(3);return;
   }
   
   // P3: project details OR no-initiative context
@@ -749,17 +825,19 @@ function sV(id,msg){const e=document.getElementById(id);if(e){e.classList.add('o
 function hV(id){const e=document.getElementById(id);if(e)e.classList.remove('on');}
 
 function buildRev(){
-  const m=document.getElementById('mChk').checked;
-  const li=document.getElementById('leadSel').value;
-  const lN=m?document.getElementById('mN').value:(li!==''?LEADS[parseInt(li)][0]:'—');
-  const lC=m?document.getElementById('mC').value:document.getElementById('lCargo').value;
-  const lE=m?document.getElementById('mE').value:document.getElementById('lEmail').value;
+  const lN=document.getElementById('lNome')?.value||'—';
+  const lCargoSel=document.getElementById('lCargo')?.value||'';
+  const lCargoOutro=document.getElementById('lCargoOutro')?.value||'';
+  const lC=lCargoSel==='Outro'&&lCargoOutro?lCargoOutro:lCargoSel||'—';
+  const lE=document.getElementById('lEmail')?.value||'—';
+  const lW=document.getElementById('lWhats')?.value||'—';
   let h=`<div class="rs"><div class="rh"><h3><i class="ti ti-building" style="color:var(--t)"></i> Unidade de Negócio</h3><button class="ebtn" onclick="gEdit(0)"><i class="ti ti-edit"></i> Editar</button></div>
     <div class="rrow"><span class="rl">UDN selecionada</span><span class="rv">${S.udn?.name||'—'}</span></div></div>
   <div class="rs"><div class="rh"><h3><i class="ti ti-user" style="color:var(--t)"></i> Dados da Liderança</h3><button class="ebtn" onclick="gEdit(1)"><i class="ti ti-edit"></i> Editar</button></div>
     <div class="rrow"><span class="rl">Liderança</span><span class="rv">${lN}</span></div>
-    <div class="rrow"><span class="rl">Cargo</span><span class="rv">${lC||'—'}</span></div>
-    <div class="rrow"><span class="rl">E-mail</span><span class="rv">${lE||'—'}</span></div></div>
+    <div class="rrow"><span class="rl">Cargo</span><span class="rv">${lC}</span></div>
+    <div class="rrow"><span class="rl">E-mail</span><span class="rv">${lE}</span></div>
+    <div class="rrow"><span class="rl">WhatsApp</span><span class="rv">${lW}</span></div></div>
   <div class="rs"><div class="rh"><h3><i class="ti ti-rocket" style="color:var(--t)"></i> Iniciativas</h3><button class="ebtn" onclick="gEdit(2)"><i class="ti ti-edit"></i> Editar</button></div>
     <div class="rrow"><span class="rl">Possui iniciativas?</span><span class="rv">${S.hasInit?'✅ Sim':'❌ Ainda não'}</span></div>
     ${S.hasInit?`<div class="rrow"><span class="rl">Quantidade</span><span class="rv">${S.qty===5?'5 ou mais':S.qty} projeto(s)</span></div>`:''}</div>`;
@@ -784,11 +862,27 @@ function buildRev(){
 function gEdit(n){S.page=n;showPg(n);document.getElementById('bNext').innerHTML='Próximo <i class="ti ti-arrow-right"></i>';}
 
 function collectData(){
-  const m=document.getElementById('mChk').checked;
-  const li=document.getElementById('leadSel').value;
-  const lN=m?document.getElementById('mN').value:(li!==''?LEADS[parseInt(li)][0]:'');
-  const lC=m?document.getElementById('mC').value:document.getElementById('lCargo').value;
-  const lE=m?document.getElementById('mE').value:document.getElementById('lEmail').value;
+  // P1: new manual fields
+  const lN=document.getElementById('lNome')?.value||'';
+  const lCargoSel=document.getElementById('lCargo')?.value||'';
+  const lCargoOutro=document.getElementById('lCargoOutro')?.value||'';
+  const lC=lCargoSel==='Outro'&&lCargoOutro?lCargoOutro:lCargoSel;
+  const lE=document.getElementById('lEmail')?.value||'';
+  const lW=document.getElementById('lWhats')?.value||'';
+  // Extra leaders
+  const extras=[];
+  for(let i=1;i<=leaderCount;i++){
+    const el=document.getElementById('extraLeader_'+i);
+    if(!el) continue;
+    const en=document.getElementById('el'+i+'nome')?.value||'';
+    const ecSel=document.getElementById('el'+i+'cargo')?.value||'';
+    const ecOut=document.getElementById('el'+i+'cargoOutro')?.value||'';
+    const ec=ecSel==='Outro'&&ecOut?ecOut:ecSel;
+    const ee=document.getElementById('el'+i+'email')?.value||'';
+    const ew=document.getElementById('el'+i+'whats')?.value||'';
+    if(en||ee) extras.push(`${en}|${ec}|${ee}|${ew}`);
+  }
+  const extraStr=extras.join('; ');
   const rows=[];
   const ts=new Date().toLocaleString('pt-BR');
   if(S.hasInit){
@@ -796,23 +890,38 @@ function collectData(){
     for(let i=1;i<=n;i++){
       const getChips=(container)=>[...container.querySelectorAll('.chip.on')].map(c=>c.textContent).join(', ');
       const acc=document.getElementById('acc'+i);
-      rows.push([ts,S.udn?.name||'',lN,lC,lE,document.getElementById('maturidadeDigital')?.value||'','Sim',
-        document.getElementById('p'+i+'n')?.value||'',document.getElementById('p'+i+'c')?.value||'',
-        document.getElementById('p'+i+'o')?.value||'',document.getElementById('p'+i+'s')?.value||'',
+      rows.push([
+        ts,S.udn?.name||'',lN,lC,lE,lW,extraStr,
+        document.getElementById('maturidadeDigital')?.value||'','Sim',
+        document.getElementById('p'+i+'n')?.value||'',
+        document.getElementById('p'+i+'c')?.value||'',
+        document.getElementById('p'+i+'o')?.value||'',
+        document.getElementById('p'+i+'s')?.value||'',
         document.getElementById('p'+i+'a')?.value||'',
-        getChips(acc.querySelectorAll('.chips')[0]||acc),document.getElementById('p'+i+'fd')?.value||'',
-        getChips(acc.querySelectorAll('.chips')[1]||acc),document.getElementById('p'+i+'id')?.value||'',
-        getChips(acc.querySelectorAll('.chips')[2]||acc),document.getElementById('p'+i+'bd')?.value||'',
-        document.getElementById('p'+i+'px')?.value||'',document.getElementById('p'+i+'re')?.value||'',
-        '','','','','','','','']);
+        getChips(acc?.querySelectorAll('.chips')[0]||acc||document.body),
+        document.getElementById('p'+i+'fd')?.value||'',
+        getChips(acc?.querySelectorAll('.chips')[1]||acc||document.body),
+        document.getElementById('p'+i+'id')?.value||'',
+        getChips(acc?.querySelectorAll('.chips')[2]||acc||document.body),
+        document.getElementById('p'+i+'bd')?.value||'',
+        document.getElementById('p'+i+'px')?.value==='Outro'
+          ? (document.getElementById('p'+i+'pxOutro')?.value||'Outro')
+          : (document.getElementById('p'+i+'px')?.value||''),
+        document.getElementById('p'+i+'re')?.value||'',
+        '','','','','',''
+      ]);
     }
   } else {
     const getChips=(id)=>[...document.getElementById(id).querySelectorAll('.chip.on')].map(c=>c.textContent).join(', ');
-    rows.push([ts,S.udn?.name||'',lN,lC,lE,document.getElementById('maturidadeDigital')?.value||'','Não','','','','','','','','','','','','','',
+    rows.push([
+      ts,S.udn?.name||'',lN,lC,lE,lW,extraStr,
+      document.getElementById('maturidadeDigital')?.value||'','Não',
+      '','','','','','','','','','','','','',
       getChips('mtvG'),document.getElementById('mtvJ').value,
       getChips('impG'),document.getElementById('impJ').value,
       S.fut||'',document.getElementById('futJ').value,
-      getChips('apoG'),document.getElementById('apoJ').value]);
+      getChips('apoG'),document.getElementById('apoJ').value,
+    ]);
   }
   return rows;
 }
