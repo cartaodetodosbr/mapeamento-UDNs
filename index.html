@@ -961,9 +961,10 @@ function collectData(){
     const ecSel=document.getElementById('el'+i+'cargo')?.value||'';
     const ecOut=document.getElementById('el'+i+'cargoOutro')?.value||'';
     const ec=ecSel==='Outro'&&ecOut?ecOut:ecSel;
+    const ef=document.getElementById('el'+i+'funcao')?.value||'';
     const ee=document.getElementById('el'+i+'email')?.value||'';
     const ew=document.getElementById('el'+i+'whats')?.value||'';
-    if(en||ee) extras.push(`${en}|${ec}|${ee}|${ew}`);
+    if(en||ee) extras.push(`${en}|${ec}|${ef}|${ee}|${ew}`);
   }
   const extraStr=extras.join('; ');
   const rows=[];
