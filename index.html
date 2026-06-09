@@ -635,7 +635,7 @@ function addLeader(){
       </div>
     </div>
     <div class="fr">
-      <div class="fg"><label>E-mail</label><input type="email" id="el${i}email" placeholder="Ex.: carlos@todos.com.br"></div>
+      <div class="fg"><label>E-mail <span class="req">*</span></label><input type="email" id="el${i}email" placeholder="Ex.: carlos@todos.com.br"><span class="err-hint" id="hel${i}email">Campo obrigatório.</span></div>
       <div class="fg"><label>WhatsApp <span style="font-size:.75rem;color:var(--gm)">(opcional)</span></label><input type="tel" id="el${i}whats" placeholder="Ex.: (11) 99999-9999"></div>
     </div>`;
   document.getElementById('extraLeaders').appendChild(div);
@@ -829,6 +829,9 @@ function gNext(){
       const ef=document.getElementById('el'+i+'funcao');
       const hef=document.getElementById('hel'+i+'funcao');
       if(ef&&!ef.value.trim()){fErr(ef,hef,true);ok=false;}else if(ef)fErr(ef,hef,false);
+      const ee=document.getElementById('el'+i+'email');
+      const hee=document.getElementById('hel'+i+'email');
+      if(ee&&!ee.value.trim()){fErr(ee,hee,true);ok=false;}else if(ee)fErr(ee,hee,false);
     }
     if(!ok){sV('v1','Preencha todos os campos obrigatórios.');return;}
     hV('v1');S.page=2;showPg(2);return;
