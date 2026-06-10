@@ -618,13 +618,14 @@ function addLeader(){
     <button type="button" onclick="removeLeader(${i})" style="position:absolute;top:8px;right:10px;background:none;border:none;cursor:pointer;color:var(--gm);font-size:16px" title="Remover"><i class="ti ti-x"></i></button>
     <div style="font-size:.84rem;font-weight:700;color:var(--p);margin-bottom:.875rem">Liderança ${i}</div>
     <div class="fr">
-      <div class="fg"><label>Nome completo</label><input id="el${i}nome" placeholder="Ex.: Carlos Souza"></div>
+      <div class="fg"><label>Nome completo <span class="req">*</span></label><input id="el${i}nome" placeholder="Ex.: Carlos Souza"><span class="err-hint" id="hel${i}nome">Campo obrigatório.</span></div>
       <div class="fg">
-        <label>Cargo</label>
+        <label>Cargo <span class="req">*</span></label>
         <select id="el${i}cargo" onchange="togCargoOutro('el${i}cargo','el${i}cargoDiv')">
           <option value="">Selecione...</option>${cargoOpts}
         </select>
         <div id="el${i}cargoDiv" style="display:none;margin-top:.5rem"><input id="el${i}cargoOutro" placeholder="Informe o cargo"></div>
+        <span class="err-hint" id="hel${i}cargo">Campo obrigatório.</span>
       </div>
     </div>
     <div class="fr">
@@ -826,6 +827,12 @@ function gNext(){
     for(let i=1;i<=leaderCount;i++){
       const el=document.getElementById('extraLeader_'+i);
       if(!el) continue;
+      const en=document.getElementById('el'+i+'nome');
+      const hen=document.getElementById('hel'+i+'nome');
+      if(en&&!en.value.trim()){fErr(en,hen,true);ok=false;}else if(en)fErr(en,hen,false);
+      const ec=document.getElementById('el'+i+'cargo');
+      const hec=document.getElementById('hel'+i+'cargo');
+      if(ec&&!ec.value){fErr(ec,hec,true);ok=false;}else if(ec)fErr(ec,hec,false);
       const ef=document.getElementById('el'+i+'funcao');
       const hef=document.getElementById('hel'+i+'funcao');
       if(ef&&!ef.value.trim()){fErr(ef,hef,true);ok=false;}else if(ef)fErr(ef,hef,false);
