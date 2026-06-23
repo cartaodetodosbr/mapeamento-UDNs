@@ -466,13 +466,14 @@ Mais do que utilizar ferramentas digitais, ele influencia comportamentos, lidera
   <!-- 5. Quantidade (se Sim) -->
   <div id="qtyDiv" style="display:none">
     <div class="fc">
-      <h4 style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.75rem">Quantas iniciativas existem atualmente?</h4>
-      <div class="qf" id="qF">
-        <div class="qp" onclick="selQ(1,this)">1</div>
-        <div class="qp" onclick="selQ(2,this)">2</div>
-        <div class="qp" onclick="selQ(3,this)">3</div>
-        <div class="qp" onclick="selQ(4,this)">4</div>
-        <div class="qp" onclick="selQ(5,this)">5 ou mais</div>
+      <h4 style="font-size:.97rem;font-weight:700;color:var(--pd);margin-bottom:.75rem">Quantidade de iniciativas <span class="req">*</span></h4>
+      <div class="fr s1">
+        <div class="fg" style="max-width:200px">
+          <input type="number" id="qtyInput" min="1" max="50" placeholder="Ex.: 3"
+            oninput="onQtyInput(this)"
+            style="font-size:1.1rem;font-weight:600;text-align:center">
+          <span class="err-hint" id="hQtyInput">Informe um número entre 1 e 50.</span>
+        </div>
       </div>
     </div>
   </div>
@@ -697,6 +698,12 @@ function onMaturidade(){
 }
 
 function selInit(h){
+  if(!h){
+    // Clear qty input when "Ainda não" is selected
+    const qi=document.getElementById('qtyInput');
+    if(qi){qi.value='';fErr(qi,document.getElementById('hQtyInput'),false);}
+    S.qty=0;
+  }
   const mat=document.getElementById('maturidadeDigital')?.value||'';
   const muitoBaixa=mat==='Muito baixa (Nenhuma iniciativa digital implementada)';
   // Regra 2: bloquear "Sim" se maturidade for Muito baixa
@@ -711,11 +718,16 @@ function selInit(h){
   document.getElementById('v2').classList.remove('on');
 }
 
-function selQ(n,el){
-  S.qty=n;
-  document.querySelectorAll('#qF .qp').forEach(p=>p.classList.remove('sel'));
-  el.classList.add('sel');
-  buildAccs(n===5?5:n);
+function onQtyInput(el){
+  const raw=parseInt(el.value,10);
+  if(!el.value||isNaN(raw)||raw<1||raw>50){
+    S.qty=0;
+    fErr(el,document.getElementById('hQtyInput'),true);
+    return;
+  }
+  fErr(el,document.getElementById('hQtyInput'),false);
+  S.qty=raw;
+  buildAccs(raw);
 }
 
 function sFut(el,v){
@@ -852,7 +864,13 @@ function gNext(){
     if(!mat.value){fErr(mat,hMat,true);ok=false;}else fErr(mat,hMat,false);
     if(S.hasInit===null){document.getElementById('v2').classList.add('on');ok=false;}
     else document.getElementById('v2').classList.remove('on');
-    if(S.hasInit===true&&!S.qty){sV('v2','Informe quantas iniciativas existem.');ok=false;}
+    if(S.hasInit===true&&!S.qty){
+      const qEl=document.getElementById('qtyInput');
+      fErr(qEl,document.getElementById('hQtyInput'),true);
+      sV('v2','Informe a quantidade de iniciativas.');ok=false;
+    } else if(S.hasInit===true){
+      fErr(document.getElementById('qtyInput'),document.getElementById('hQtyInput'),false);
+    }
     if(!ok)return;
     hV('v2');S.page=3;showPg(3);return;
   }
@@ -861,7 +879,7 @@ function gNext(){
   if(p===3){
     if(S.hasInit){
       // Validate all accordion fields
-      const n=S.qty===5?5:S.qty;
+      const n=S.qty;
       let ok=true;let firstBadAcc=-1;
       for(let i=1;i<=n;i++){
         const fields=[
@@ -932,7 +950,7 @@ function buildRev(){
     <div class="rrow"><span class="rl">WhatsApp</span><span class="rv">${lW}</span></div></div>
   <div class="rs"><div class="rh"><h3><i class="ti ti-rocket" style="color:var(--t)"></i> Iniciativas</h3><button class="ebtn" onclick="gEdit(2)"><i class="ti ti-edit"></i> Editar</button></div>
     <div class="rrow"><span class="rl">Possui iniciativas?</span><span class="rv">${S.hasInit?'✅ Sim':'❌ Ainda não'}</span></div>
-    ${S.hasInit?`<div class="rrow"><span class="rl">Quantidade</span><span class="rv">${S.qty===5?'5 ou mais':S.qty} projeto(s)</span></div>`:''}</div>`;
+    ${S.hasInit?`<div class="rrow"><span class="rl">Quantidade</span><span class="rv">${S.qty} iniciativa(s)</span></div>`:''}</div>`;
   if(S.hasInit&&S.qty>0){
     for(let i=1;i<=S.qty;i++){
       const pn=document.getElementById('p'+i+'n')?.value||'—';
@@ -980,7 +998,7 @@ function collectData(){
   const rows=[];
   const ts=new Date().toLocaleString('pt-BR');
   if(S.hasInit){
-    const n=S.qty===5?5:S.qty;
+    const n=S.qty;
     for(let i=1;i<=n;i++){
       const getChips=(container)=>[...container.querySelectorAll('.chip.on')].map(c=>c.textContent).join(', ');
       const acc=document.getElementById('acc'+i);
