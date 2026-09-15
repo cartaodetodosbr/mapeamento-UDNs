@@ -186,6 +186,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 /* field error hint */
 .err-hint{font-size:.78rem;color:#c62828;margin-top:3px;display:none}
 .err-hint.on{display:block}
+.case-sh{margin:1.4rem 0 .9rem;padding-top:1.1rem;border-top:1px dashed var(--gl)}
+.case-sh .tag{font-size:11px;font-weight:700;color:var(--t);text-transform:uppercase;letter-spacing:1.2px;display:flex;align-items:center;gap:6px;margin-bottom:.3rem}
+.case-sh h4{font-size:1rem;margin:0;color:var(--pd)}
+.case-cnt{font-size:.78rem;color:var(--gm);margin-top:3px}
+.case-cnt.ok{color:var(--p);font-weight:700}
+.ipill-row{display:flex;gap:10px;margin-top:2px}
+.ipill{padding:9px 18px;border:1.5px solid var(--gl);border-radius:50px;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--gd);background:#fff;user-select:none;transition:all .16s}
+.ipill.on{border-color:var(--p);background:var(--p);color:#fff}
 
 /* REVIEW */
 .rs{background:#fff;border-radius:var(--rl);padding:1.5rem;margin-bottom:1rem;box-shadow:var(--sh0)}
@@ -758,7 +766,7 @@ function mkAcc(i){
     <div class="ab">
       <div class="fr"><div class="fg"><label>Nome do Projeto / Iniciativa <span class="req">*</span></label><input id="p${i}n" oninput="updT(${i})" placeholder="Ex.: Automação da emissão de relatórios de RH"><span class="err-hint" id="hp${i}n">Campo obrigatório.</span></div>
       <div class="fg"><label>Categoria <span class="req">*</span></label><select id="p${i}c"><option value="">Selecione...</option>${cats.map(c=>`<option>${c}</option>`).join('')}</select><span class="err-hint" id="hp${i}c">Campo obrigatório.</span></div></div>
-      <div class="fr s1"><div class="fg"><label>Objetivo do Projeto <span class="req">*</span></label><textarea id="p${i}o" placeholder="Ex.: Reduzir tempo gasto com consolidação manual de indicadores."></textarea><span class="err-hint" id="hp${i}o">Campo obrigatório.</span></div></div>
+      <div class="fr s1"><div class="fg"><label>Objetivo do Projeto <span class="req">*</span></label><textarea id="p${i}o" placeholder="Ex.: Reduzir tempo gasto com consolidação manual de indicadores." oninput="updCntById('p${i}o',100)"></textarea><span class="case-cnt" id="cnt_p${i}o">0 de 100 caracteres mínimos</span><span class="err-hint" id="hp${i}o">Mínimo de 100 caracteres.</span></div></div>
       <div class="fr"><div class="fg"><label>Status Atual <span class="req">*</span></label><select id="p${i}s"><option value="">Selecione...</option>${stats.map(s=>`<option>${s}</option>`).join('')}</select><span class="err-hint" id="hp${i}s">Campo obrigatório.</span></div>
       <div class="fg"><label>Área Impactada <span class="req">*</span></label><input id="p${i}a" placeholder="Ex.: RH, Financeiro, Operações"><span class="err-hint" id="hp${i}a">Campo obrigatório.</span></div></div>
       <div class="fg"><label>Ferramentas Utilizadas <span class="req">*</span></label>
@@ -766,15 +774,72 @@ function mkAcc(i){
         <textarea id="p${i}fd" placeholder="Ex.: Utilizamos Python para automação e Power BI para visualização..." style="margin-top:7px"></textarea><span class="err-hint" id="hp${i}fd">Campo obrigatório.</span></div>
       <div class="fg"><label>Indicadores de Resultado <span class="req">*</span></label>
         <div class="chips">${inds.map(t=>`<div class="chip" onclick="tC(this)">${t}</div>`).join('')}</div>
-        <textarea id="p${i}id" placeholder="Descreva os principais indicadores alcançados..." style="margin-top:7px"></textarea><span class="err-hint" id="hp${i}id">Campo obrigatório.</span></div>
+        <textarea id="p${i}id" placeholder="Descreva os principais indicadores alcançados..." style="margin-top:7px" oninput="updCntById('p${i}id',100)"></textarea><span class="case-cnt" id="cnt_p${i}id">0 de 100 caracteres mínimos</span><span class="err-hint" id="hp${i}id">Mínimo de 100 caracteres.</span></div>
       <div class="fg"><label>Principal Benefício Percebido <span class="req">*</span></label>
         <div class="chips">${bens.map(t=>`<div class="chip" onclick="tC(this)">${t}</div>`).join('')}</div>
-        <textarea id="p${i}bd" placeholder="Descreva os benefícios percebidos..." style="margin-top:7px"></textarea><span class="err-hint" id="hp${i}bd">Campo obrigatório.</span></div>
+        <textarea id="p${i}bd" placeholder="Descreva os benefícios percebidos..." style="margin-top:7px" oninput="updCntById('p${i}bd',100)"></textarea><span class="case-cnt" id="cnt_p${i}bd">0 de 100 caracteres mínimos</span><span class="err-hint" id="hp${i}bd">Mínimo de 100 caracteres.</span></div>
       <div class="fr"><div class="fg"><label>Qual é o próximo estágio desta iniciativa? <span class="req">*</span></label><select id="p${i}px" onchange="togPxOutro(${i})"><option value="">Selecione...</option><option>Já está em funcionamento</option><option>Será expandida para outras áreas</option><option>Está em fase de melhoria</option><option>Está em fase de testes</option><option>Ainda está sendo estruturada</option><option>Outro</option></select><div id="p${i}pxOutroDiv" style="display:none;margin-top:.5rem"><input id="p${i}pxOutro" placeholder="Descreva o próximo estágio..."></div><span class="err-hint" id="hp${i}px">Campo obrigatório.</span></div>
       <div class="fg"><label>Responsável Principal <span class="req">*</span></label><input id="p${i}re" placeholder="Nome do responsável pela iniciativa"><span class="err-hint" id="hp${i}re">Campo obrigatório.</span></div>
       <div class="fg"><label>Co-responsável</label><input id="p${i}cr" placeholder="Nome do co-responsável (opcional)"></div></div>
+      <div class="case-sh"><div class="tag"><i class="ti ti-briefcase"></i> Case da Iniciativa</div><h4>Complete o Case desta iniciativa</h4></div>
+      ${caseTA(i,'situacao_motivo','Qual situação motivou a iniciativa?','Descreva o contexto/problema que motivou a iniciativa...',100)}
+      ${caseTA(i,'situacao_impacto','Como essa situação impactava a operação?','Descreva o impacto na operação antes da iniciativa...',100)}
+      <div class="fg"><label>Requer investimentos? <span class="req">*</span></label>
+        <div class="ipill-row" id="p${i}_case_requerG">
+          <div class="ipill" onclick="setInvest(${i},'Sim')">Sim</div>
+          <div class="ipill" onclick="setInvest(${i},'Não')">Não</div>
+        </div>
+        <span class="err-hint" id="hp${i}_case_requer">Selecione uma opção.</span></div>
+      <div class="fg" id="p${i}_case_investimentos_desc_wrap" style="display:none">
+        <label>Quais investimentos são necessários? <span class="req">*</span></label>
+        <textarea id="p${i}_case_investimentos_desc" placeholder="Descreva os investimentos necessários..."></textarea>
+        <span class="err-hint" id="hp${i}_case_investimentos_desc">Campo obrigatório.</span></div>
+      ${caseTA(i,'como_implementado','Como a iniciativa foi implementada?','Descreva como a iniciativa foi implementada...',100)}
+      ${caseTA(i,'ferramentas_utilizadas','Ferramentas utilizadas','Liste as ferramentas utilizadas...',0)}
+      ${caseTA(i,'areas_envolvidas','Áreas envolvidas','Liste as áreas envolvidas...',0)}
+      ${caseTA(i,'beneficios_obtidos','Principais benefícios obtidos','Descreva os benefícios obtidos...',100)}
+      ${caseTA(i,'resultados_mensuraveis','Resultados mensuráveis','Números, indicadores, percentuais (se houver)...',0)}
+      ${caseTA(i,'cuidados_recomendados','Quais cuidados outra UDN deve ter ao replicar?','Descreva os cuidados recomendados...',0)}
+      ${caseTA(i,'pre_requisito','Existe algum pré-requisito importante?','Descreva pré-requisitos, se houver...',0)}
+      ${caseTA(i,'materiais_apoio','Materiais de apoio','Cole links de materiais de apoio, se houver...',0)}
     </div>
   </div>`;
+}
+
+/** Um campo de texto do Case, com contador só quando há mínimo — mesmos rótulos,
+ *  placeholders e mínimos já usados no Portal de Cases e na Central (nunca reinventa
+ *  regra). Sem mínimo = sem asterisco, sem contador, sem validação obrigatória
+ *  (regra do projeto: não criar exigência artificial em campo sem mínimo real). */
+function caseTA(i,key,label,placeholder,min){
+  const id=`p${i}_case_${key}`;
+  const reqMark = min ? ' <span class="req">*</span>' : '';
+  const counter = min ? `<span class="case-cnt" id="cnt_${id}">0 de ${min} caracteres mínimos</span>` : '';
+  const hint = min ? `<span class="err-hint" id="h${id}">Mínimo de ${min} caracteres.</span>` : '';
+  const oninput = min ? ` oninput="updCaseCnt(${i},'${key}',${min})"` : '';
+  return `<div class="fg"><label>${label}${reqMark}</label><textarea id="${id}" placeholder="${placeholder}"${oninput}></textarea>${counter}${hint}</div>`;
+}
+
+/* Contador de caracteres — função centralizada (regra do projeto: evitar lógica
+ * duplicada), usada tanto pelos campos de Case quanto pelos campos originais do
+ * Cadastro que também passaram a ter mínimo obrigatório. */
+function updCntById(id,min){
+  const el=document.getElementById(id),cnt=document.getElementById('cnt_'+id);
+  if(!el||!cnt)return;
+  const len=el.value.trim().length;
+  if(len>=min){cnt.textContent=`✓ ${len} caracteres`;cnt.classList.add('ok');}
+  else{cnt.textContent=`${len} de ${min} caracteres mínimos`;cnt.classList.remove('ok');}
+}
+function updCaseCnt(i,key,min){
+  updCntById(`p${i}_case_${key}`,min);
+}
+
+function setInvest(i,val){
+  document.querySelectorAll(`#p${i}_case_requerG .ipill`).forEach(p=>p.classList.toggle('on',p.textContent===val));
+  S['caseInvest'+i]=val;
+  const wrap=document.getElementById(`p${i}_case_investimentos_desc_wrap`);
+  if(wrap)wrap.style.display=val==='Sim'?'block':'none';
+  const hint=document.getElementById(`hp${i}_case_requer`);
+  if(hint)hint.classList.remove('on');
 }
 
 function tA(i){document.getElementById('acc'+i).classList.toggle('open')}
@@ -883,9 +948,9 @@ function gNext(){
       let ok=true;let firstBadAcc=-1;
       for(let i=1;i<=n;i++){
         const fields=[
-          {id:`p${i}n`},{id:`p${i}c`},{id:`p${i}o`},
+          {id:`p${i}n`},{id:`p${i}c`},
           {id:`p${i}s`},{id:`p${i}a`},{id:`p${i}fd`},
-          {id:`p${i}id`},{id:`p${i}bd`},{id:`p${i}px`},{id:`p${i}re`}
+          {id:`p${i}px`},{id:`p${i}re`}
         ];
         let accBad=false;
         fields.forEach(f=>{
@@ -894,6 +959,33 @@ function gNext(){
           if(el&&!el.value.trim()){fErr(el,hint,true);ok=false;accBad=true;}
           else if(el)fErr(el,hint,false);
         });
+        // Campos com mínimo obrigatório de caracteres — Objetivo do Projeto,
+        // Indicadores de Resultado e Principal Benefício Percebido (campos originais
+        // do Cadastro) mais os 4 campos do Case. Todos com mínimo de 100 caracteres.
+        [[`p${i}o`,100],[`p${i}id`,100],[`p${i}bd`,100],
+         [`p${i}_case_situacao_motivo`,100],[`p${i}_case_situacao_impacto`,100],
+         [`p${i}_case_como_implementado`,100],[`p${i}_case_beneficios_obtidos`,100]
+        ].forEach(([id,min])=>{
+          const el=document.getElementById(id);
+          const hint=document.getElementById('h'+id);
+          const len=(el?.value||'').trim().length;
+          if(len<min){fErr(el,hint,true);ok=false;accBad=true;}
+          else if(el)fErr(el,hint,false);
+        });
+        const investVal=S['caseInvest'+i];
+        const investHint=document.getElementById(`hp${i}_case_requer`);
+        if(!investVal){
+          if(investHint)investHint.classList.add('on');
+          ok=false;accBad=true;
+        } else {
+          if(investHint)investHint.classList.remove('on');
+          if(investVal==='Sim'){
+            const descEl=document.getElementById(`p${i}_case_investimentos_desc`);
+            const descHint=document.getElementById(`hp${i}_case_investimentos_desc`);
+            if(!descEl||!descEl.value.trim()){fErr(descEl,descHint,true);ok=false;accBad=true;}
+            else fErr(descEl,descHint,false);
+          }
+        }
         if(accBad&&firstBadAcc===-1){firstBadAcc=i;}
       }
       if(!ok){
@@ -961,7 +1053,8 @@ function buildRev(){
         <div class="rrow"><span class="rl">Nome</span><span class="rv">${pn}</span></div>
         <div class="rrow"><span class="rl">Categoria</span><span class="rv">${pc}</span></div>
         <div class="rrow"><span class="rl">Status</span><span class="rv">${ps}</span></div>
-        <div class="rrow"><span class="rl">Área impactada</span><span class="rv">${pa}</span></div></div>`;
+        <div class="rrow"><span class="rl">Área impactada</span><span class="rv">${pa}</span></div>
+        <div class="rrow"><span class="rl">Case</span><span class="rv">✅ Preenchido</span></div></div>`;
     }
   }
   document.getElementById('revC').innerHTML=h;
@@ -970,6 +1063,16 @@ function buildRev(){
 }
 
 function gEdit(n){S.page=n;showPg(n);document.getElementById('bNext').innerHTML='Próximo <i class="ti ti-arrow-right"></i>';}
+
+function caseValsFor(i){
+  const g=(k)=>document.getElementById(`p${i}_case_${k}`)?.value.trim()||'';
+  return [
+    g('situacao_motivo'), g('situacao_impacto'), S['caseInvest'+i]||'', g('investimentos_desc'),
+    g('como_implementado'), g('ferramentas_utilizadas'), g('areas_envolvidas'), g('beneficios_obtidos'),
+    g('resultados_mensuraveis'), g('cuidados_recomendados'), g('pre_requisito'), g('materiais_apoio'),
+    'Pendente'
+  ];
+}
 
 function collectData(){
   // P1: new manual fields
@@ -1020,7 +1123,8 @@ function collectData(){
           ? (document.getElementById('p'+i+'pxOutro')?.value||'Outro')
           : (document.getElementById('p'+i+'px')?.value||''),
         document.getElementById('p'+i+'re')?.value||'',
-        '','','','','','','','',''
+        ...Array(8).fill(''),
+        ...caseValsFor(i)
       ]);
     }
   } else {
@@ -1028,11 +1132,17 @@ function collectData(){
     rows.push([
       ts,S.udn?.name||'',lN,lC,lFuncao,lE,lW,extraStr,
       document.getElementById('maturidadeDigital')?.value||'','Não',
-      '','','','','','','','','','','','','',
+      // Correção de bug pré-existente (achado nesta etapa, confirmado pelo Code view
+      // real da ação "Add a row into a table"): faltavam 2 posições vazias aqui
+      // (Próximo Estágio / Responsável Principal, que não existem quando não há
+      // iniciativa) — sem elas, tudo que vem depois (Motivo, Impedimentos,
+      // Planejamento, Apoio) gravava nas colunas erradas, deslocado em 2 posições.
+      ...Array(13).fill(''),
       getChips('mtvG'),document.getElementById('mtvJ').value,
       getChips('impG'),document.getElementById('impJ').value,
       S.fut||'',document.getElementById('futJ').value,
-      getChips('apoG'),document.getElementById('apoJ').value
+      getChips('apoG'),document.getElementById('apoJ').value,
+      ...Array(13).fill('')
     ]);
   }
   return rows;
